@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"os"
 	"time"
 )
 
@@ -13,6 +14,12 @@ var (
 
 	p *Puzh
 )
+
+func init() {
+	if token := os.Getenv("PUZH_TOKEN"); token != "" {
+		p = NewPuzh(token)
+	}
+}
 
 func Init(token string) {
 	p = NewPuzh(token)
