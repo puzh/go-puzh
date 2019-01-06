@@ -10,7 +10,8 @@ import (
 )
 
 var (
-	NotInitialized = errors.New("puzh: package not initialized")
+	// ErrNotInitialized indicates that the package has not been initialized.
+	ErrNotInitialized = errors.New("puzh: package not initialized")
 
 	p *Puzh
 )
@@ -21,24 +22,25 @@ func init() {
 	}
 }
 
+// Init initializes the package.
 func Init(token string) {
 	p = NewPuzh(token)
 }
 
 // It formats its parameters analogous to fmt.Sprint and sends the resulting
-// string to the Telegram @puzhbot
+// string to the Telegram @puzhbot.
 func It(a ...interface{}) error {
 	if p == nil {
-		return NotInitialized
+		return ErrNotInitialized
 	}
 	return p.It(a...)
 }
 
 // Itf formats its parameters analogous to fmt.Sprintf and sends the resulting
-// string to the Telegram @puzhbot
+// string to the Telegram @puzhbot.
 func Itf(format string, a ...interface{}) error {
 	if p == nil {
-		return NotInitialized
+		return ErrNotInitialized
 	}
 	return p.Itf(format, a...)
 }
@@ -63,13 +65,13 @@ func NewPuzh(token string) *Puzh {
 }
 
 // It formats its parameters analogous to fmt.Sprint and sends the resulting
-// string to the Telegram @puzhbot
+// string to the Telegram @puzhbot.
 func (p *Puzh) It(a ...interface{}) error {
 	return p.it(fmt.Sprint(a...))
 }
 
 // Itf formats its parameters analogous to fmt.Sprintf and sends the resulting
-// string to the Telegram @puzhbot
+// string to the Telegram @puzhbot.
 func (p *Puzh) Itf(format string, a ...interface{}) error {
 	return p.it(fmt.Sprintf(format, a...))
 }
