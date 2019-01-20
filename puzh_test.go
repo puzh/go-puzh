@@ -1,6 +1,7 @@
 package puzh
 
 import (
+	"os"
 	"testing"
 )
 
@@ -19,4 +20,10 @@ func TestIt(t *testing.T) {
 	t.Skip()
 	Init("")
 	It("test")
+}
+
+func ExampleItf() {
+	Init("my-token")
+
+	Itf("Hi, *%s*", os.Getenv("USER"))
 }
