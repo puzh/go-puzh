@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	// ErrNotInitialized indicates that the package has not been initialized.
+	// ErrNotInitialized indicates that the package has not been initialized yet.
 	ErrNotInitialized = errors.New("puzh: package not initialized")
 
 	p *Puzh
@@ -22,7 +22,7 @@ func init() {
 	}
 }
 
-// Init initializes the package.
+// Init initializes the package with the given authentication token.
 func Init(token string) {
 	p = NewPuzh(token)
 }

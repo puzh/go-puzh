@@ -6,10 +6,10 @@ import (
 
 func TestInit(t *testing.T) {
 	if err := It("test"); err != ErrNotInitialized {
-		t.Errorf("should return error NotInitialized")
+		t.Errorf("should return error ErrNotInitialized")
 	}
 
-	Init("token")
+	Init("my-token")
 	if err := It("test"); err != nil {
 		t.Errorf("should return no error")
 	}
