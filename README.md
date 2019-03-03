@@ -1,11 +1,11 @@
-# Package puzh [![Build Status](https://travis-ci.com/puzh/go-puzh.svg?branch=master)](https://travis-ci.com/puzh/go-puzh) [![GoDoc](https://godoc.org/github.com/puzh/go-puzh?status.svg)](https://godoc.org/github.com/puzh/go-puzh) [![Go Report Card](https://goreportcard.com/badge/github.com/puzh/go-puzh)](https://goreportcard.com/report/github.com/puzh/go-puzh)
+# Package puzh [![Build Status](https://travis-ci.com/puzh/puzh-go.svg?branch=master)](https://travis-ci.com/puzh/puzh-go) [![GoDoc](https://godoc.org/github.com/puzh/puzh-go?status.svg)](https://godoc.org/github.com/puzh/puzh-go) [![Go Report Card](https://goreportcard.com/badge/github.com/puzh/puzh-go)](https://goreportcard.com/report/github.com/puzh/puzh-go)
 
 ```go
-import "github.com/puzh/go-puzh"
+import "github.com/puzh/puzh-go"
 ```
 
 
-### Index
+## Index
 - [Variables](#variables)
 - [func Init(token string)](#func-init)
 - [func It(a ...interface{}) error](#func-it)
@@ -16,7 +16,7 @@ import "github.com/puzh/go-puzh"
     - [func (p *Puzh) Itf(format string, a ...interface{}) error](#func-puzh-itf)
 
 
-### Variables
+## Variables
 ```go
 var (
 	// ErrNotInitialized indicates that the package has not been initialized yet.
@@ -25,28 +25,28 @@ var (
 ```
 
 
-### func [Init](puzh.go#L26)
+## func [Init](puzh.go#L26)
 ```go
 func Init(token string)
 ```
 Init initializes the package with the given authentication token.
 
 
-### func [It](puzh.go#L32)
+## func [It](puzh.go#L32)
 ```go
 func It(a ...interface{}) error
 ```
 It formats its parameters analogous to fmt.Sprint and sends the resulting string to the  Telegram [@puzhbot](https://t.me/puzhbot).
 
 
-### func [Itf](puzh.go#L41)
+## func [Itf](puzh.go#L41)
 ```go
 func Itf(format string, a ...interface{}) error
 ```
 Itf formats its parameters analogous to fmt.Sprintf and sends the resulting string to the Telegram [@puzhbot](https://t.me/puzhbot).
 
 
-### type [Puzh](puzh.go#L49)
+## type [Puzh](puzh.go#L49)
 ```go
 type Puzh struct {
 	// contains filtered or unexported fields
