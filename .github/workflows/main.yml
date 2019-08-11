@@ -1,0 +1,21 @@
+on:
+  - push
+  - pull_request
+
+jobs:
+  fmt:
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-go@v1
+      with:
+        version: 1.12
+    - run: go fmt
+
+  build:
+    needs: fmt
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-go@v1
+      with:
+        version: 1.12
+    - run: go build
