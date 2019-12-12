@@ -10,28 +10,27 @@ import (
 )
 
 var (
-	// ErrNotInitialized indicates that the package has not been initialized yet.
-	ErrNotInitialized = errors.New("puzh: package not initialized")
+	errNotInitialized = errors.New("puzh: package not initialized")
 
 	p *Puzh
 )
 
 func init() {
 	if token := os.Getenv("PUZH_TOKEN"); token != "" {
-		p = NewPuzh(token)
+		p = New(token, false)
 	}
 }
 
 // Init initializes the package with the given authentication token.
 func Init(token string) {
-	p = NewPuzh(token)
+	p = New(token, false)
 }
 
 // It formats its parameters analogous to fmt.Sprint and sends the resulting
 // string to the Telegram @puzhbot.
 func It(a ...interface{}) error {
 	if p == nil {
-		return ErrNotInitialized
+		return errNotInitialized
 	}
 	return p.It(a...)
 }
@@ -40,7 +39,7 @@ func It(a ...interface{}) error {
 // string to the Telegram @puzhbot.
 func Itf(format string, a ...interface{}) error {
 	if p == nil {
-		return ErrNotInitialized
+		return errNotInitialized
 	}
 	return p.Itf(format, a...)
 }
@@ -49,18 +48,23 @@ func Itf(format string, a ...interface{}) error {
 type Puzh struct {
 	client *http.Client
 
-	token string
+	token  string // api token
+	silent bool   // send messages silently, without sound
 }
 
-// NewPuzh returns a new instance of Puzh given an authentication token.
-func NewPuzh(token string) *Puzh {
-	tr := &http.Transport{
-		MaxIdleConns:    1,
-		IdleConnTimeout: 30 * time.Second,
-	}
+// New returns a new instance of Puzh given an authentication token.
+func New(token string, silent bool) *Puzh {
 	return &Puzh{
-		client: &http.Client{Transport: tr},
+		client: &http.Client{
+			Timeout: 30 * time.Second,
+			Transport: &http.Transport{
+				MaxIdleConns:    1,
+				IdleConnTimeout: 30 * time.Second,
+			},
+		},
+
 		token:  token,
+		silent: silent,
 	}
 }
 
@@ -81,6 +85,10 @@ func (p *Puzh) it(message string) error {
 		"token": []string{p.token},
 		"text":  []string{message},
 	}
+	if p.silent {
+		data["silent"] = []string{"true"}
+	}
+
 	_, err := p.client.PostForm("https://api.puzh.it", data)
 	return err
 }

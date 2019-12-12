@@ -6,7 +6,7 @@ import (
 )
 
 func TestInit(t *testing.T) {
-	if err := It("test"); err != ErrNotInitialized {
+	if err := It("test"); err != errNotInitialized {
 		t.Errorf("should return error ErrNotInitialized")
 	}
 
